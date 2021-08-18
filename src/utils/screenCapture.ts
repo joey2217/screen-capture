@@ -1,5 +1,3 @@
-
-
 const displayMediaOptions = {
     video: {
         cursor: "always"
@@ -8,8 +6,12 @@ const displayMediaOptions = {
 };
 
 export function getCaptureStream(): Promise<MediaStream> {
-    // @ts-ignore
-    return navigator.mediaDevices.getDisplayMedia(displayMediaOptions);
+    try {
+        // @ts-ignore
+        return navigator.mediaDevices.getDisplayMedia(displayMediaOptions);
+    } catch (error) {
+        return Promise.reject(error)
+    }
 }
 
 let recorder: any;
